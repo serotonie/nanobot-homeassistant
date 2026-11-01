@@ -1,7 +1,7 @@
 # Nanobot Conversation
 
-Intégration de conversation Home Assistant pour l'API native `nanobot serve`
-du [fork Nanobot de serotonie](https://github.com/serotonie/nanobot).
+Intégration de conversation Home Assistant pour l'API native `nanobot serve`.
+Basée sur le projet [Nanobot](https://github.com/HKUDS/nanobot).
 Aucune modification du cœur de Home Assistant ou Nanobot.
 
 ## Installation
@@ -70,12 +70,9 @@ GitHub Actions si une nouvelle version est demandée.
 
 Cette intégration s'appuie sur **Nanobot** pour le raisonnement, la mémoire de
 conversation et l'exécution des outils. Merci aux auteurs et contributeurs de
-[HKUDS/nanobot](https://github.com/HKUDS/nanobot), le projet d'origine, ainsi
-qu'aux contributeurs du [fork utilisé ici](https://github.com/serotonie/nanobot).
+[HKUDS/nanobot](https://github.com/HKUDS/nanobot), le projet upstream.
 
-- [API agent Nanobot](https://github.com/serotonie/nanobot/blob/main/docs/agent-api.md) :
-  interface HTTP utilisée par cette intégration.
-- [Documentation Nanobot](https://github.com/serotonie/nanobot/blob/main/docs/README.md) :
+- [Documentation Nanobot](https://github.com/HKUDS/nanobot#readme) :
   installation, configuration des modèles, mémoire et outils MCP.
 - [Home Assistant](https://www.home-assistant.io/) et
   [HACS](https://www.hacs.xyz/) : conversation Assist et distribution de
