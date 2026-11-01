@@ -39,18 +39,19 @@ Nanobot. Aucun préfixe n'est requis.
   journalisés sans clé API. Les commandes ne sont jamais relancées
   automatiquement.
 
-Compatibilité vérifiée avec Home Assistant **2026.10.4**. La voix nécessite
-également un moteur STT/TTS configuré dans le pipeline.
+Les validations utilisent l'image Home Assistant **latest**, en réutilisant le
+cache Docker lorsqu'elle est disponible. La voix nécessite également un moteur
+STT/TTS configuré dans le pipeline.
 
 ## Développement
 
-Structure et workflows inspirés du dépôt OVMS Trips Recorder : validations
-HACS et Hassfest, tests, lint et publication séparés. Aucun frontend requis.
+Validations HACS et Hassfest, tests, lint et publication séparés.
+Aucun frontend requis.
 
 ```sh
 docker run --rm --network none --tmpfs /tmp \
   -v "$PWD:/repo:ro" --entrypoint python \
-  ghcr.io/home-assistant/home-assistant:2026.10.4 \
+  ghcr.io/home-assistant/home-assistant:latest \
   -m unittest discover -s /repo/tests -v
 ```
 
@@ -70,15 +71,13 @@ GitHub Actions si une nouvelle version est demandée.
 
 Cette intégration s'appuie sur **Nanobot** pour le raisonnement, la mémoire de
 conversation et l'exécution des outils. Merci aux auteurs et contributeurs de
-[HKUDS/nanobot](https://github.com/HKUDS/nanobot), le projet upstream.
+[HKUDS/nanobot](https://github.com/HKUDS/nanobot).
 
 - [Documentation Nanobot](https://github.com/HKUDS/nanobot#readme) :
   installation, configuration des modèles, mémoire et outils MCP.
 - [Home Assistant](https://www.home-assistant.io/) et
   [HACS](https://www.hacs.xyz/) : conversation Assist et distribution de
   l'intégration.
-- [OVMS Trips Recorder](https://github.com/serotonie/ovms-home-assistant-trips-recorder) :
-  référence pour la structure du dépôt et les workflows.
 
 Ce dépôt est une intégration communautaire indépendante ; il ne fait pas partie
 de Home Assistant Core ni du projet Nanobot d'origine.

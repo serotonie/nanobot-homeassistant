@@ -15,5 +15,5 @@ jobs:
         run: |
           docker run --rm --network none --tmpfs /tmp \
             -v "$PWD:/repo:ro" --entrypoint python \
-            ghcr.io/home-assistant/home-assistant:2026.10.4 \
+            ghcr.io/home-assistant/home-assistant:latest \
             -m unittest discover -s /repo/tests -v

@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/workspaces/nanobot-homeassistant:cached
   homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:2026.10.4
+    image: ghcr.io/home-assistant/home-assistant:latest
     ports:
       - "18123:8123"
     volumes:
