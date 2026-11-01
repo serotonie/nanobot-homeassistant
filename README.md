@@ -1,6 +1,7 @@
 # Nanobot Conversation
 
-Intégration de conversation Home Assistant pour l'API native `nanobot serve`.
+Intégration de conversation Home Assistant pour l'API native `nanobot serve`
+du [fork Nanobot de serotonie](https://github.com/serotonie/nanobot).
 Aucune modification du cœur de Home Assistant ou Nanobot.
 
 ## Installation
@@ -64,6 +65,26 @@ Le workflow met à jour le manifeste, exécute les tests, commit la version si
 elle change, puis publie le tag et l'archive sur ce même commit. Un tag existant
 est refusé. Les règles de protection de `main` doivent autoriser ce commit par
 GitHub Actions si une nouvelle version est demandée.
+
+## Références et remerciements
+
+Cette intégration s'appuie sur **Nanobot** pour le raisonnement, la mémoire de
+conversation et l'exécution des outils. Merci aux auteurs et contributeurs de
+[HKUDS/nanobot](https://github.com/HKUDS/nanobot), le projet d'origine, ainsi
+qu'aux contributeurs du [fork utilisé ici](https://github.com/serotonie/nanobot).
+
+- [API agent Nanobot](https://github.com/serotonie/nanobot/blob/main/docs/agent-api.md) :
+  interface HTTP utilisée par cette intégration.
+- [Documentation Nanobot](https://github.com/serotonie/nanobot/blob/main/docs/README.md) :
+  installation, configuration des modèles, mémoire et outils MCP.
+- [Home Assistant](https://www.home-assistant.io/) et
+  [HACS](https://www.hacs.xyz/) : conversation Assist et distribution de
+  l'intégration.
+- [OVMS Trips Recorder](https://github.com/serotonie/ovms-home-assistant-trips-recorder) :
+  référence pour la structure du dépôt et les workflows.
+
+Ce dépôt est une intégration communautaire indépendante ; il ne fait pas partie
+de Home Assistant Core ni du projet Nanobot d'origine.
 
 ## Licence
 
