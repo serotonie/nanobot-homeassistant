@@ -57,3 +57,7 @@ Le devcontainer utilise `docker-compose.dev.yml`. L'instance de développement
 est accessible sur le port 18123 ; ses données locales ne sont pas suivies par
 Git. La version du manifeste doit être mise à jour avant d'exécuter le workflow
 Release, qui teste puis publie une archive et un tag correspondant.
+
+## Licence
+
+Distribué sous licence [MIT](LICENSE).
