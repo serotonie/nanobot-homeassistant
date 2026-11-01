@@ -1,0 +1,47 @@
+{
+  "title": "Nanobot Conversation",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Nanobot",
+        "description": "Home Assistant handles requests first. Nanobot is used only for unrecognized requests or targets. Select this agent in Assist and disable Prefer handling commands locally: this integration already performs that routing. The API must use bearer authentication.",
+        "data": {
+          "name": "Agent name",
+          "url": "Nanobot base URL",
+          "api_key": "API key",
+          "timeout": "Request timeout (seconds)"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Nanobot",
+        "description": "Enter the API key again to update the endpoint.",
+        "data": {
+          "name": "Agent name",
+          "url": "Nanobot base URL",
+          "api_key": "API key",
+          "timeout": "Request timeout (seconds)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reconnect to Nanobot",
+        "description": "Nanobot rejected authentication. Enter the current API key.",
+        "data": {
+          "name": "Agent name",
+          "url": "Nanobot base URL",
+          "api_key": "API key",
+          "timeout": "Request timeout (seconds)"
+        }
+      }
+    },
+    "error": {
+      "invalid_settings": "Provide a name, an HTTP(S) URL without credentials, a nonempty API key and a timeout between 5 and 180 seconds.",
+      "invalid_auth": "Nanobot rejected the API key.",
+      "cannot_connect": "Unable to connect to the Nanobot agent API or validate its response."
+    },
+    "abort": {
+      "already_configured": "This Nanobot endpoint is already configured.",
+      "reconfigure_successful": "Nanobot configuration updated.",
+      "reauth_successful": "Nanobot authentication updated."
+    }
+  }
+}

@@ -1,0 +1,30 @@
+name: Release
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run tests before packaging
+        run: |
+          docker run --rm --network none --tmpfs /tmp \
+            -v "$PWD:/repo:ro" --entrypoint python \
+            ghcr.io/home-assistant/home-assistant:2026.10.4 \
+            -m unittest discover -s /repo/tests -v
+      - name: Read version and package integration
+        id: package
+        run: |
+          set -eu
+          version=$(jq -r '.version' custom_components/nanobot_conversation/manifest.json)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          cd custom_components/nanobot_conversation
+          zip -r "$GITHUB_WORKSPACE/nanobot_conversation.zip" . -x '*__pycache__*'
+      - uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ steps.package.outputs.version }}
+          name: v${{ steps.package.outputs.version }}
+          generate_release_notes: true
+          files: nanobot_conversation.zip

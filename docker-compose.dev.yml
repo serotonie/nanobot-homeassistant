@@ -1,0 +1,14 @@
+services:
+  dev:
+    image: mcr.microsoft.com/devcontainers/python:3-3.14-trixie
+    command: sleep infinity
+    working_dir: /workspaces/nanobot-homeassistant
+    volumes:
+      - .:/workspaces/nanobot-homeassistant:cached
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:2026.10.4
+    ports:
+      - "18123:8123"
+    volumes:
+      - ./dev/config:/config
+      - ./custom_components/nanobot_conversation:/config/custom_components/nanobot_conversation:ro

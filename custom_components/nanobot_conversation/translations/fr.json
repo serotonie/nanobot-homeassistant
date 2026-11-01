@@ -1,0 +1,47 @@
+{
+  "title": "Nanobot Conversation",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connecter Nanobot",
+        "description": "Home Assistant traite les demandes en premier. Nanobot intervient seulement pour les demandes ou cibles non reconnues. Sélectionnez cet agent dans Assist et désactivez Préférer traiter les commandes localement : cette intégration assure déjà le routage. L'API doit utiliser une authentification par jeton.",
+        "data": {
+          "name": "Nom de l'agent",
+          "url": "URL de base de Nanobot",
+          "api_key": "Clé API",
+          "timeout": "Délai maximal (secondes)"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigurer Nanobot",
+        "description": "Saisissez de nouveau la clé API pour modifier la connexion.",
+        "data": {
+          "name": "Nom de l'agent",
+          "url": "URL de base de Nanobot",
+          "api_key": "Clé API",
+          "timeout": "Délai maximal (secondes)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reconnecter Nanobot",
+        "description": "Nanobot a refusé l'authentification. Saisissez la clé API actuelle.",
+        "data": {
+          "name": "Nom de l'agent",
+          "url": "URL de base de Nanobot",
+          "api_key": "Clé API",
+          "timeout": "Délai maximal (secondes)"
+        }
+      }
+    },
+    "error": {
+      "invalid_settings": "Indiquez un nom, une URL HTTP(S) sans identifiants, une clé API non vide et un délai entre 5 et 180 secondes.",
+      "invalid_auth": "Nanobot a refusé la clé API.",
+      "cannot_connect": "Impossible de joindre l'API de Nanobot ou de valider sa réponse."
+    },
+    "abort": {
+      "already_configured": "Cette connexion Nanobot existe déjà.",
+      "reconfigure_successful": "Configuration de Nanobot mise à jour.",
+      "reauth_successful": "Authentification de Nanobot mise à jour."
+    }
+  }
+}
