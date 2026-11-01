@@ -1,19 +1,76 @@
 name: Release
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (X.Y.Z, without v)"
+        required: true
+        default: "0.1.0"
+        type: string
+      prerelease:
+        description: "Publish as a prerelease"
+        required: true
+        default: false
+        type: boolean
 permissions:
   contents: write
+concurrency:
+  group: nanobot-release
+  cancel-in-progress: false
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Validate version and update manifest
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          set -eu
+          test "$GITHUB_REF" = "refs/heads/main" || {
+            echo "::error::Releases must run from main"
+            exit 1
+          }
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import re
+
+          version = os.environ["RELEASE_VERSION"]
+          if not re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)", version):
+              raise SystemExit("Version must be X.Y.Z without a v prefix or leading zeros")
+          path = Path("custom_components/nanobot_conversation/manifest.json")
+          manifest = json.loads(path.read_text())
+          manifest["version"] = version
+          path.write_text(json.dumps(manifest, indent=2) + "\n")
+          PY
+          tags=$(git ls-remote --tags origin "refs/tags/v$RELEASE_VERSION")
+          if test -n "$tags"; then
+            echo "::error::This version already has a tag; choose a new version"
+            exit 1
+          fi
       - name: Run tests before packaging
         run: |
           docker run --rm --network none --tmpfs /tmp \
             -v "$PWD:/repo:ro" --entrypoint python \
             ghcr.io/home-assistant/home-assistant:2026.10.4 \
             -m unittest discover -s /repo/tests -v
+      - name: Commit the tested version
+        id: commit
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add custom_components/nanobot_conversation/manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: release v$RELEASE_VERSION" \
+              -m "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+            git push origin HEAD:main
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Read version and package integration
         id: package
         run: |
@@ -26,5 +83,7 @@ jobs:
         with:
           tag_name: v${{ steps.package.outputs.version }}
           name: v${{ steps.package.outputs.version }}
+          target_commitish: ${{ steps.commit.outputs.sha }}
+          prerelease: ${{ inputs.prerelease }}
           generate_release_notes: true
           files: nanobot_conversation.zip

@@ -55,8 +55,15 @@ docker run --rm --network none --tmpfs /tmp \
 
 Le devcontainer utilise `docker-compose.dev.yml`. L'instance de développement
 est accessible sur le port 18123 ; ses données locales ne sont pas suivies par
-Git. La version du manifeste doit être mise à jour avant d'exécuter le workflow
-Release, qui teste puis publie une archive et un tag correspondant.
+Git.
+
+Pour publier, ouvrir **Actions → Release → Run workflow**, choisir la branche
+**main**, saisir la version **X.Y.Z** sans préfixe `v` (par exemple **0.1.0**
+pour la première release) et cocher **prerelease** si nécessaire.
+Le workflow met à jour le manifeste, exécute les tests, commit la version si
+elle change, puis publie le tag et l'archive sur ce même commit. Un tag existant
+est refusé. Les règles de protection de `main` doivent autoriser ce commit par
+GitHub Actions si une nouvelle version est demandée.
 
 ## Licence
 
